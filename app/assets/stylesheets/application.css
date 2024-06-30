@@ -1,15 +1,56 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+
+/* カスタムCSS */
+.navbar-custom {
+  background-color: #069; /* 濃いブルー */
+}
+.navbar-custom .navbar-brand, 
+.navbar-custom .navbar-nav .nav-link {
+  color: #ffffff; /* 白色 */
+}
+
+body{
+    min-height: 100%;
+    background-color: #f0f8ff; /* ライトブルー */
+}
+.main-content {
+  background-color: #f0f8ff; /* ライトブルー */
+  padding: 20px;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+  border-color: white; /* ボーダーを白くする */
+}
+
+body {
+font-family: Arial, sans-serif;
+line-height: 1.1;
+}
+
+.footer {
+  background-color: #069;
+  color: white;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px; /* 高さを調整 */
+  display: flex;
+  align-items: center; /* 垂直方向の中央揃え */
+  justify-content: center; /* 水平方向の中央揃え */
+}
+
+.footer p {
+  margin: 0; /* <p> 要素のデフォルトマージンをリセット */
+}
+
+h1, h2 {
+color: #333;
+}
+
+.feature {
+margin-bottom: 30px;
+}
