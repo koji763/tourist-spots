@@ -1,5 +1,5 @@
 
-/* カスタムCSS */
+/*ナビバー設定*/
 .navbar-custom {
   background-color: #069; /* 濃いブルー */
 }
@@ -8,13 +8,9 @@
   color: #ffffff; /* 白色 */
 }
 
-body{
-    min-height: 100%;
-    background-color: #f0f8ff; /* ライトブルー */
-}
-.main-content {
-  background-color: #f0f8ff; /* ライトブルー */
-  padding: 20px;
+.navbar-custom .navbar-nav .nav-link:hover {
+  color: #87cefa; /* ホバー時の色 */
+  text-decoration: underline; /* ホバー時の下線 */
 }
 
 .navbar-toggler-icon {
@@ -25,10 +21,24 @@ body{
   border-color: white; /* ボーダーを白くする */
 }
 
-body {
-font-family: Arial, sans-serif;
+.fa-sign-in-alt {
+    margin-right: 5px; /* アイコンとテキストの間にスペースを追加 */
+}
+
+/*ナビバー設定完了*/
+
+body{
+    min-height: 100%;
+    background-color: #f0f8ff; /* ライトブルー */
+    font-family: Arial, sans-serif;
 line-height: 1.1;
 }
+
+.main-content {
+  background-color: #f0f8ff; /* ライトブルー */
+  padding: 20px;
+}
+
 
 .footer {
   background-color: #069;
@@ -53,4 +63,10 @@ color: #333;
 
 .feature {
 margin-bottom: 30px;
+}
+
+/*リストドロップダウン設定*/
+.select-dropdown  {
+  max-height: 200px !important; /* ドロップダウンの最大高さを設定 */
+  overflow-y: auto !important; /* コンテンツが最大高さを超えるとスクロールバーを表示 */
 }

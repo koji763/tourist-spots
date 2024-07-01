@@ -8,7 +8,26 @@ import Turbolinks from "turbolinks"
 import "channels"
 
 import $ from 'jquery'
-global.$ = jQuery
+global.$ = $
 
 Rails.start()
 Turbolinks.start()
+
+// リストの初期文字グレーにする処理
+document.addEventListener("DOMContentLoaded", function() {
+  const selectElements = document.querySelectorAll(".initial_char");
+
+  selectElements.forEach(function(selectElement) {
+    // 初期状態のプレースホルダーをグレーに設定
+    selectElement.style.color = "#a9a9a9";
+
+    // イベントリスナーを追加して選択時に色を変更
+    selectElement.addEventListener("change", function() {
+      if (selectElement.value === "") {
+        selectElement.style.color = "#a9a9a9"; // プレースホルダーが選択された場合
+      } else {
+        selectElement.style.color = "#000000"; // その他の選択肢が選択された場合
+      }
+    });
+  });
+});

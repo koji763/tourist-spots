@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
+   before_action :require_user_logged_in, only: [:index, :show, :edit, :destroy]
+   before_action :set_user, only: [:edit, :update, :destroy]
+  
   def index
   end
   
   def show
-    @user = User.find(params[:id])
+    @user = current_user
   end
   
   def new
@@ -22,12 +25,9 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
   end
   
   def update
-    @user = User.find(params[:id])
-    
     if @user.update(user_params)
       flash[:success] = 'Your profile has been successfully updated.'
       redirect_to @user
@@ -38,7 +38,6 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     
     flash[:success] = 'Your account has been successfully deleted.'
@@ -48,6 +47,10 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :icon)
+  end
+  
+  def set_user
+    @user = User.find(params[:id])
   end
   
 end

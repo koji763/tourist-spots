@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_29_074930) do
+ActiveRecord::Schema.define(version: 2024_07_01_073008) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,41 @@ ActiveRecord::Schema.define(version: 2024_06_29_074930) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "category"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "prefectures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "prefecture"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tourist_spots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "usage_scene_id", null: false
+    t.bigint "prefecture_id", null: false
+    t.string "spot_name"
+    t.string "address"
+    t.text "explanation"
+    t.float "avg_evaluation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_tourist_spots_on_category_id"
+    t.index ["prefecture_id"], name: "index_tourist_spots_on_prefecture_id"
+    t.index ["usage_scene_id"], name: "index_tourist_spots_on_usage_scene_id"
+    t.index ["user_id"], name: "index_tourist_spots_on_user_id"
+  end
+
+  create_table "usage_scenes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "usage_scene"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -50,4 +85,8 @@ ActiveRecord::Schema.define(version: 2024_06_29_074930) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "tourist_spots", "categories"
+  add_foreign_key "tourist_spots", "prefectures"
+  add_foreign_key "tourist_spots", "usage_scenes"
+  add_foreign_key "tourist_spots", "users"
 end

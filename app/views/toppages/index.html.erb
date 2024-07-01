@@ -19,6 +19,8 @@
     <h3>Feature ③: Post</h3>
     <p>If you find a spot that is just for you, be sure to post it.</p>
   </div>
-
-  <p>Join our community</p>
+  
+  <% unless logged_in? %>
+    <%= link_to "Join our community", login_path, class: "btn btn-primary" %>
+  <% end %>
 </div>

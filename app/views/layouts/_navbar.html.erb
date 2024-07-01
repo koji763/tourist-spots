@@ -1,4 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-custom">
+  <% if logged_in? %>
   <div class="container-fluid"> <!-- ナビバーを画面いっぱいにするクラス -->
       <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav-bar"> <!-- targetがハンバーガーメニューの目印 -->
         <span class="navbar-toggler-icon"></span>
@@ -6,12 +7,32 @@
       <div class="collapse navbar-collapse" id="nav-bar">　<!-- idはtargetで指定したもの -->
           <!-- メニュー項目 -->
           <ul class="navbar-nav me-auto">
-              <li class="nav-item"><a href="#" class="nav-link active">Top</a></li>
+              <li class="nav-item"><%= link_to "Top", root_path, class: "nav-link" %></li>
               <li class="nav-item"><a href="#" class="nav-link">Search</a></li>
-              <li class="nav-item"><a href="#" class="nav-link">Mypage</a></li>
-              <li class="nav-item"><a href="#" class="nav-link">Post</a></li>
-              <li class="nav-item"><a href="#" class="nav-link">Logout</a></li>
-          </ul>
+              <li class="nav-item"><%= link_to "Mypage", user_path(current_user), class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to 'Post', new_tourist_spot_path, class: 'nav-link' %></li>
+          </ul> 
+          <ul class="navbar-nav ms-auto"> 
+            <li class="nav-item">
+            <%= link_to logout_path, method: :delete, class: 'nav-link' do %>
+              <i class="fas fa-sign-out-alt"></i> Log out
+            <% end %>
+          </li>
+        </ul>
       </div>
   </div>
+  <% else %>
+    <div class="container-fluid">
+      <%= link_to 'Tourist-spots', root_path, class: 'navbar-brand' %>
+      
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to '<i class="fas fa-sign-in-alt"></i> Login'.html_safe, login_path, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
 </nav>

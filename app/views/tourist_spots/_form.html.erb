@@ -1,0 +1,50 @@
+<%= form_with(model: tourist_spot, local: true, html: { multipart: true }) do |form| %>
+  <div class="text-center mb-3">
+    <p class="text-muted">Fields marked with <span class="text-danger">*</span> are mandatory. Please fill out all required fields in English.</p>
+  </div>
+
+  <div class="field">
+    <%= form.label :spot_name %>
+    <%= form.label :spot_name, "Spot name <span class='text-danger'>*</span>".html_safe %>
+    <%= form.text_field :spot_name, class: 'form-control' %>
+  </div>
+  
+  <div class="field mt-3  select-dropdown">
+    <%= form.label :prefecture %>
+    <%= form.label :prefecture, "Prefecture <span class='text-danger'>*</span>".html_safe %>
+    <%= form.collection_select :prefecture_id, Prefecture.all, :id, :prefecture, { prompt: "Select a Prefecture" }, { class: 'form-select initial_char' } %>
+  </div>
+
+  <div class="field mt-3">
+    <%= form.label :address %>
+    <%= form.label :address, "Address <span class='text-danger'>*</span>".html_safe %>
+    <%= form.text_field :address, class: 'form-control' %>
+  </div>
+
+  <div class="field mt-3  select-dropdown">
+    <%= form.label :category %>
+    <%= form.label :category, "Category <span class='text-danger'>*</span>".html_safe %>
+    <%= form.collection_select :category_id, Category.all, :id, :category, { prompt: "Select a Category" }, { class: 'form-select initial_char' } %>
+  </div>
+
+  <div class="field mt-3  select-dropdown">
+    <%= form.label :usage_scene %>
+    <%= form.label :usage_scene, "Usage scene <span class='text-danger'>*</span>".html_safe %>
+    <%= form.collection_select :usage_scene_id, UsageScene.all, :id, :usage_scene, { prompt: "Select a Usage Scene" }, { class: 'form-select initial_char' } %>
+  </div>
+  
+  <div class="field mt-3">
+    <%= form.label :explanation %>
+    <%= form.label :explanation, "Explanation <span class='text-danger'>*</span>".html_safe %>
+    <%= form.text_area :explanation, class: 'form-control' %>
+  </div>
+
+  <div class="field mt-3">
+    <%= form.label :images, "Images (up to 5)" %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+  
+  <div class="d-flex justify-content-center mt-3">
+    <%= form.submit submit_button_text, class: 'btn btn-primary' %>
+  </div>
+<% end %>

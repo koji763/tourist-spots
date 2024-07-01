@@ -26,6 +26,7 @@
         <%= form.password_field :password_confirmation, class: 'form-control' %>
       </div>
       
+      <p>Already have an account? <%= link_to "Log in", login_path %></p>
       
       <div class="d-flex justify-content-center mt-2">
        <%= form.submit 'Sign up', class: 'btn btn-primary' %>
