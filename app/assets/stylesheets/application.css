@@ -65,8 +65,4 @@ color: #333;
 margin-bottom: 30px;
 }
 
-/*リストドロップダウン設定*/
-.select-dropdown  {
-  max-height: 200px !important; /* ドロップダウンの最大高さを設定 */
-  overflow-y: auto !important; /* コンテンツが最大高さを超えるとスクロールバーを表示 */
-}
+

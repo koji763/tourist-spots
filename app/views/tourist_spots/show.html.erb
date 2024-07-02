@@ -1,2 +1,50 @@
-<h1>TouristSpots#show</h1>
-<p>Find me in app/views/tourist_spots/show.html.erb</p>
+<div class="container mt-5">
+  <h1 class="mb-4"><%= @tourist_spot.spot_name %></h1>
+
+  <div class="row">
+    <div class="col-md-8">
+      <p><strong>Prefecture:</strong> <%= @tourist_spot.prefecture.prefecture %></p>
+      <p><strong>Address:</strong> <%= @tourist_spot.address %></p>
+      <p><strong>Category:</strong> <%= @tourist_spot.category.category %></p>
+      <p><strong>Usage Scene:</strong> <%= @tourist_spot.usage_scene.usage_scene %></p>
+      <p><strong>Explanation:</strong> <%= @tourist_spot.explanation %></p>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <% if @tourist_spot.images.attached? %>
+      <% @tourist_spot.images.each_with_index do |image, index| %>
+        <div class="col-md-4 mb-3">
+          <%= link_to image_tag(image, class: 'img-fluid'), "#imageModal#{index}", data: { toggle: 'modal' } %>
+
+          <!-- Modal -->
+          <div class="modal fade" id="imageModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel<%= index %>" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="imageModalLabel<%= index %>"><%= @tourist_spot.spot_name %> Image <%= index + 1 %></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <%= image_tag(image, class: 'img-fluid') %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-md-4 mb-3">
+        <%= image_tag('default_image.png', class: 'img-fluid') %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to 'Edit', edit_tourist_spot_path(@tourist_spot), class: 'btn btn-primary' %>
+    <%= link_to 'Back to List', tourist_spots_path, class: 'btn btn-secondary' %>
+    <%= link_to 'Delete', @tourist_spot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  </div>
+</div>
