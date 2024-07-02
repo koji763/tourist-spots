@@ -1,2 +1,76 @@
-<h1>TouristSpots#edit</h1>
-<p>Find me in app/views/tourist_spots/edit.html.erb</p>
+  <div class="text-center mb-3 mt-5">
+    <h1>Edit a Tourist Spot</h1>
+  </div>
+  
+  <div style="width: 80%; margin:auto;">
+    <%= form_with(model: @tourist_spot, local: true, html: { multipart: true }) do |form| %>
+    <%= render 'layouts/error_messages', model: form.object %>
+  
+      <div class="text-center mb-3">
+        <p class="text-muted">Fields marked with <span class="text-danger">*</span> are mandatory. Please fill out all required fields in English.</p>
+      </div>
+    
+      <div class="field">
+        <%= form.label :spot_name, "Spot name <span class='text-danger'>*</span>".html_safe %>
+        <%= form.text_field :spot_name, class: 'form-control' %>
+      </div>
+      
+      <div class="field mt-3  select-dropdown">
+        <%= form.label :prefecture, "Prefecture <span class='text-danger'>*</span>".html_safe %>
+        <%= form.collection_select :prefecture_id, Prefecture.all, :id, :prefecture, { prompt: "Select a Prefecture" }, { class: 'form-select initial_char' } %>
+      </div>
+    
+      <div class="field mt-3">
+        <%= form.label :address, "Address <span class='text-danger'>*</span>".html_safe %>
+        <%= form.text_field :address, class: 'form-control' %>
+      </div>
+    
+      <div class="field mt-3  select-dropdown">
+        <%= form.label :category, "Category <span class='text-danger'>*</span>".html_safe %>
+        <%= form.collection_select :category_id, Category.all, :id, :category, { prompt: "Select a Category" }, { class: 'form-select initial_char' } %>
+      </div>
+    
+      <div class="field mt-3  select-dropdown">
+        <%= form.label :usage_scene, "Usage scene <span class='text-danger'>*</span>".html_safe %>
+        <%= form.collection_select :usage_scene_id, UsageScene.all, :id, :usage_scene, { prompt: "Select a Usage Scene" }, { class: 'form-select initial_char' } %>
+      </div>
+      
+      <div class="field mt-3">
+        <%= form.label :explanation, "Explanation <span class='text-danger'>*</span>".html_safe %>
+        <%= form.text_area :explanation, class: 'form-control' %>
+      </div>
+      
+      <!--<div class="field mt-3">-->
+      <!--  <%= form.label :images, "Images (up to 5)" %>-->
+      <!--  <%= form.file_field :images, multiple: true, accept: 'image/*', id: 'tourist_spot_images' %>-->
+      <!--  <div id="preview-zone" class="mt-3"></div> -->
+      <!--</div>-->
+      
+      <div class="field mt-3">
+        <%= form.label :images, "Current Images", class: "mb-2"%>
+          <div class="container-fluid">
+            <div class="row">
+              <% @tourist_spot.images.each do |image| %>
+                <div class="col-6 col-lg-4 mb-3">
+                  <div class="text-start">
+                    <%= image_tag image, class: "img-fluid", style: "width: 200px; height: 150px; object-fit: cover;" %>
+                    <div class="mt-2">
+                      <%= check_box_tag 'tourist_spot[remove_images][]', image.blob.id %>
+                      <%= label_tag "Remove image" %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        
+          <%= form.label :new_images, "Add New Images" %>
+          <%= form.file_field :images, multiple: true, accept: 'image/*', id: 'tourist_spot_images' %>
+      </div>
+      
+      <div class="d-flex justify-content-center mt-3 mb-5">
+      <%= form.submit "Update", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+  

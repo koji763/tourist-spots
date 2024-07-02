@@ -1,4 +1,3 @@
-
 /*ナビバー設定*/
 .navbar-custom {
   background-color: #069; /* 濃いブルー */
@@ -27,11 +26,11 @@
 
 /*ナビバー設定完了*/
 
-body{
-    min-height: 100%;
-    background-color: #f0f8ff; /* ライトブルー */
-    font-family: Arial, sans-serif;
-line-height: 1.1;
+html, body{
+  min-height: 100%;
+  background-color: #f0f8ff; /* ライトブルー */
+  font-family: Arial, sans-serif;
+  line-height: 1.1;
 }
 
 .main-content {
@@ -65,4 +64,69 @@ color: #333;
 margin-bottom: 30px;
 }
 
+/*モーダル*/
+/* モーダル全体のスタイル */
+#modal {
+  display: none; /* デフォルトでは非表示 */
+  position: fixed;
+  z-index: 1000; /* 画面上の他の要素よりも前面に表示 */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* コンテンツが溢れた場合にスクロール可能に */
+  background-color: rgba(0,0,0,0.5); /* 半透明の黒背景 */
+}
 
+/* モーダルコンテンツのスタイル */
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto; /* 上下のマージン */
+  width: 80%; /* モーダルの幅 */
+  max-width: 600px; /* モーダルの最大幅 */
+  border-radius: 10px; /* 角を丸くする */
+}
+
+/* モーダルヘッダーのスタイル */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+/* モーダルを閉じるボタンのスタイル */
+.modalClose {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modalClose:hover,
+.modalClose:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* モーダルボディのスタイル */
+.modal-body {
+  margin-top: 10px;
+}
+
+
+/*画像プレビュー*/
+.preview-img {
+  margin-right: 10px;
+}
+
+.remove-btn {
+  margin-left: 5px;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}

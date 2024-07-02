@@ -27,7 +27,29 @@ class TouristSpotsController < ApplicationController
   end
 
   def update
+    # 選択画像の削除
+    if params[:tourist_spot][:remove_images]
+      params[:tourist_spot][:remove_images].each do |blob_id|
+        image = @tourist_spot.images.find_by(blob_id: blob_id)
+        image&.purge
+      end
+    end
+    
+    # 新しい画像を追加
+    new_images = params[:tourist_spot].delete(:images)
+    
     if @tourist_spot.update(tourist_spot_params)
+      if new_images
+        total_images = @tourist_spot.images.count + new_images.count
+          if total_images <= 5
+            @tourist_spot.images.attach(new_images)
+            flash[:success] = "Tourist spot has been updated."
+            redirect_to @tourist_spot and return
+          else
+            flash.now[:danger] = 'You can only upload up to 5 images.'
+            render :edit and return
+          end
+      end
       flash[:success] = "Tourist spot has been updated."
       redirect_to @tourist_spot
     else
@@ -35,11 +57,12 @@ class TouristSpotsController < ApplicationController
       render :edit
     end
   end
+  
 
   def destroy
     @tourist_spot.destroy
     flash[:success] = "Tourist spot has been deleted."
-    redirect_to tourist_spots_url
+    redirect_back(fallback_location: root_path)
   end
 
   private

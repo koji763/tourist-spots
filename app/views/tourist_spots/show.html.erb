@@ -8,43 +8,73 @@
       <p><strong>Category:</strong> <%= @tourist_spot.category.category %></p>
       <p><strong>Usage Scene:</strong> <%= @tourist_spot.usage_scene.usage_scene %></p>
       <p><strong>Explanation:</strong> <%= @tourist_spot.explanation %></p>
+      <p><strong>Evaluation:</strong> <%= @tourist_spot.avg_evaluation.present? ? "#{@tourist_spot.avg_evaluation}/5" : "Not yet rated" %></p>
+      <p><strong>Post date:</strong> <%= @tourist_spot.created_at %></p>
+
+    </div>
+  </div>
+  
+  <!--画像のモーダル表示-->
+  <button id="modalOpen">view image</button>
+  <div id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><%= @tourist_spot.spot_name %> Images</h3>
+        <span class="modalClose">&times;</span>
+      </div>
+      <div class="modal-body">
+        <% if @tourist_spot.images.attached? %>
+          <!--Carouselの実装-->
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+              <% @tourist_spot.images.each_with_index do |image, index| %>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>"></li>
+              <% end %>
+            </ol>
+            <div class="carousel-inner">
+              <% @tourist_spot.images.each_with_index do |image, index| %>
+                <div class="carousel-item <%= 'active' if index == 0 %>">
+                  <%= image_tag(image.variant(resize: "400x300").processed, class: 'd-block w-100', style: "width:400px; height: 300px; object-fit: cover;") %>
+                </div>
+              <% end %>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        <% else %>
+          <%= image_tag 'default_image.png', height: "300", width: "400", alt: "There is no image", align: "top" %>
+        <% end %>
+      </div>
     </div>
   </div>
 
-  <div class="row mt-4">
-    <% if @tourist_spot.images.attached? %>
-      <% @tourist_spot.images.each_with_index do |image, index| %>
-        <div class="col-md-4 mb-3">
-          <%= link_to image_tag(image, class: 'img-fluid'), "#imageModal#{index}", data: { toggle: 'modal' } %>
-
-          <!-- Modal -->
-          <div class="modal fade" id="imageModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel<%= index %>" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="imageModalLabel<%= index %>"><%= @tourist_spot.spot_name %> Image <%= index + 1 %></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <%= image_tag(image, class: 'img-fluid') %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <div class="col-md-4 mb-3">
-        <%= image_tag('default_image.png', class: 'img-fluid') %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mt-4">
-    <%= link_to 'Edit', edit_tourist_spot_path(@tourist_spot), class: 'btn btn-primary' %>
-    <%= link_to 'Back to List', tourist_spots_path, class: 'btn btn-secondary' %>
-    <%= link_to 'Delete', @tourist_spot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-  </div>
+  <% if current_user.id == @tourist_spot.user_id%>
+    <div class="mt-4">
+      <%= link_to 'Edit', edit_tourist_spot_path(@tourist_spot), class: 'btn btn-primary' %>
+      <%= link_to 'Back to List', tourist_spots_path, class: 'btn btn-secondary' %>
+      <%= link_to 'Delete', @tourist_spot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  <% end %>
 </div>
+
+<script>
+  const buttonOpen = document.getElementById("modalOpen");
+  const buttonClose = document.querySelector(".modalClose");
+  const modal = document.getElementById("modal");
+
+  console.log(buttonOpen, buttonClose, modal);
+
+  buttonOpen.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+
+  buttonClose.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+</script>
