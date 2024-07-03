@@ -1,2 +1,62 @@
-<h1>TouristSpots#index</h1>
-<p>Find me in app/views/tourist_spots/index.html.erb</p>
+<div style="width:60%; margin:auto;">
+    <div class="text-center mb-5 mt-5">
+      <h1>Search for Tourist Spots</h1>
+  </div>
+  
+  <%= form_with url: search_path, method: :get, local: true do |form| %>
+  
+    <div class="field">
+      <%= form.label :address, "Search by area" %>
+      <%= form.text_field :address, class: 'form-control', placeholder: 'Enter Area' %>
+    </div>
+    
+    <div class="field mt-3 select-dropdown">
+      <%= form.label :prefecture %>
+      <%= form.collection_select :prefecture_id, Prefecture.all, :id, :prefecture, { prompt: "Select a Prefecture" }, { class: 'form-select' } %>
+    </div>
+    
+    <div class="d-flex mt-3">
+      <div class="mb-3 me-3">
+        <%= form.label :category, "Category", class: "form-label" %></br>
+        <% Category.all.each do |category| %>
+          <div class="form-check form-check-inline">
+            <%= check_box_tag 'category_ids[]', category.id, params[:category_ids]&.include?(category.id.to_s), class: 'form-check-input' %>
+            <%= label_tag "category_ids_#{category.id}", category.category, class: 'form-check-label' %>
+          </div>
+        <% end %>
+      </div>
+  
+      <div class="mb-3">
+        <%= form.label :usage_scene, "Usage Scene", class: "form-label"%></br>
+        <% UsageScene.all.each do |usage_scene| %>
+          <div class="form-check form-check-inline">
+            <%= check_box_tag 'usage_scene_ids[]', usage_scene.id, params[:usage_scene_ids]&.include?(usage_scene.id.to_s), class: 'form-check-input' %>
+            <%= label_tag "usage_scene_ids_#{usage_scene.id}", usage_scene.usage_scene, class: 'form-check-label' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  
+    <div class="d-flex justify-content-center mt-2 mb-2">
+      <%= form.submit 'Search', class: 'btn btn-primary' %>
+    </div>
+  
+  <% end %>
+  
+  <div class="d-flex mb-2 mt-5" style="width:60%; margin:auto;">
+    <%= link_to search_path(params.to_unsafe_h.merge(sort: 'newest')), class: "btn-white me-2", role: "button" do %>
+      <i class="fa fa-calendar"></i> Sort by Newest
+    <% end %>
+    <%= link_to search_path(params.to_unsafe_h.merge(sort: 'highest_rating')), class: "btn-white", role: "button" do %>
+      <i class="fa fa-star"></i> Sort by Highest Rating
+    <% end %>
+  </div>
+
+  
+  <% if @tourist_spots.count > 0 %>
+    <%= render 'tourist_spots', tourist_spots: @tourist_spots %>
+  <% else %>
+    <p class="text-muted mt-3">No tourist spots found matching your criteria.</p>
+  <% end %>
+
+</div>

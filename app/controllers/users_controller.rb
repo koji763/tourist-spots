@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   
   def show
     @user = current_user
+    @pagy, @tourist_spots = pagy(@user.tourist_spots.order(id: :desc), items: 5)
   end
   
   def new

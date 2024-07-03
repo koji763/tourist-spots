@@ -3,6 +3,7 @@ class TouristSpotsController < ApplicationController
   before_action :set_tourist_spot, only: [:show, :edit, :update, :destroy]
 
   def index
+    @pagy, @tourist_spots = pagy(search_tourist_spots(search_params).order(created_at: :desc), items: 5)
   end
   
   def show
@@ -62,7 +63,7 @@ class TouristSpotsController < ApplicationController
   def destroy
     @tourist_spot.destroy
     flash[:success] = "Tourist spot has been deleted."
-    redirect_back(fallback_location: root_path)
+    redirect_to user_path(current_user)
   end
 
   private
@@ -74,5 +75,46 @@ class TouristSpotsController < ApplicationController
   def tourist_spot_params
     params.require(:tourist_spot).permit(:spot_name, :address, :explanation, :category_id, :usage_scene_id, :prefecture_id, images: [])
   end
+  
+  def search_params
+    params.permit(:prefecture_id, :address, { category_ids: [] }, { usage_scene_ids: [] }, :sort)
+  end
+  
+  def search_tourist_spots(params)
+    spots = TouristSpot.all
+    
+    # 検索優先度1: 都道府県
+    if params[:prefecture_id].present?
+      spots = spots.where(prefecture_id: params[:prefecture_id])
+    end
+    
+    # 検索優先度2: エリア
+    if params[:address].present?
+      spots = spots.where('address LIKE ?', "%#{params[:address]}%")
+    end
+    
+    # 検索優先度3: カテゴリと使用シーン (OR条件)
+    if params[:category_ids].present? && params[:usage_scene_ids].present?
+      spots = spots.where(category_id: params[:category_ids]).or(spots.where(usage_scene_id: params[:usage_scene_ids]))
+    elsif params[:category_ids].present?
+      spots = spots.where(category_id: params[:category_ids])
+    elsif params[:usage_scene_ids].present?
+      spots = spots.where(usage_scene_id: params[:usage_scene_ids])
+    end
+    
+    #並び替え
+    case params[:sort]
+      when 'newest'
+        spots = spots.order(created_at: :desc)
+      when 'highest_rating'
+        spots = spots.order(avg_evaluation: :desc)
+      else
+        spots = spots.order(created_at: :desc) # デフォルトは最新順
+    end
+
+    spots
+    
+  end
+
   
 end

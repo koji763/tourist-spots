@@ -7,14 +7,30 @@
       <div class="collapse navbar-collapse" id="nav-bar">　<!-- idはtargetで指定したもの -->
           <!-- メニュー項目 -->
           <ul class="navbar-nav me-auto">
-              <li class="nav-item"><%= link_to "Top", root_path, class: "nav-link" %></li>
-              <li class="nav-item"><a href="#" class="nav-link">Search</a></li>
-              <li class="nav-item"><%= link_to "Mypage", user_path(current_user), class: "nav-link" %></li>
-              <li class="nav-item"><%= link_to 'Post', new_tourist_spot_path, class: 'nav-link' %></li>
-          </ul> 
+            <li class="nav-item">
+              <%= link_to root_path, class: "nav-link" do %>
+                <i class="bi bi-house-door"></i> Top
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to search_path, class: "nav-link" do %>
+                <i class="bi bi-search"></i> Search
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to user_path(current_user), class: "nav-link" do %>
+                <i class="bi bi-person"></i> Mypage
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_tourist_spot_path, class: 'nav-link' do %>
+                <i class="bi bi-plus-square"></i> Post
+              <% end %>
+            </li>
+          </ul>
           <ul class="navbar-nav ms-auto"> 
             <li class="nav-item">
-            <%= link_to logout_path, method: :delete, class: 'nav-link' do %>
+              <%= link_to logout_path, method: :delete, class: 'nav-link', data: { confirm: "Are you sure you want to log out?" } do %>
               <i class="fas fa-sign-out-alt"></i> Log out
             <% end %>
           </li>

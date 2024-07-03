@@ -1,0 +1,27 @@
+<% if tourist_spots.any? %>
+  <ul class="list-unstyled mt-2">
+    <% tourist_spots.each do |tourist_spot| %>
+      <li class="d-flex">
+        <div class="custom-card mb-3">
+          <div class="custom-card-body">
+            <h5 class="custom-card-title d-flex align-items-center">
+              <i class="bi bi-geo-alt-fill custom-icon mr-4"></i> <%= tourist_spot.spot_name %>
+            </h5>
+            <p class="custom-card-text">
+              <strong>Prefecture:</strong> <%= tourist_spot.prefecture.prefecture %><br>
+              <strong>Address:</strong> <%= tourist_spot.address %><br>
+              <strong>Category:</strong> <%= tourist_spot.category.category %><br>
+              <strong>Usage_scene:</strong> <%= tourist_spot.usage_scene.usage_scene %><br>
+              <strong>Post date:</strong> <%= tourist_spot.created_at.strftime("%Y-%m-%d") %><br>
+              <strong>Evaluation:</strong> <%= tourist_spot.avg_evaluation.present? ? tourist_spot.avg_evaluation : 'Not yet rated' %>
+            </p>
+            <%= link_to "view details", tourist_spot_path(tourist_spot) %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <%== pagy_bootstrap_nav(@pagy) %>
+<% else %>
+  <p class="text-muted">You have not posted anything yet.</p>
+<% end %>

@@ -10,14 +10,15 @@
       <p>name：<%= @user.name %></p>
       <p>email：<%= @user.email %></p>
       <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %>
-      <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure you want to delete your account?' }, class: 'btn btn-danger' %>
+      <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure you want to delete your account?' }, class: 'btn btn-danger' %>
   </div>
 </div>
 
-<div style="width: 80%; margin: auto;">
-  <ul class="nav nav-tabs nav-justified mb-2 mt-2">
+<div style="width: 45%; margin: auto;">
+  <ul class="nav nav-tabs nav-justified mb-4 mt-2">
     <li class="nav-item"><a href="<%= user_path(@user) %>" class="nav-link <%= 'active' if current_page?(user_path(@user)) %>">Spots</a></li>
-    <li class="nav-item"><a href="#" class="nav-link <%= 'active' if current_page?() %>">Reviews</a></li>
-    <li class="nav-item"><a href="#" class="nav-link <%= 'active' if current_page?() %>">Favorites</a></li>
+    <li class="nav-item"><a href="#" class="nav-link <%= 'activea' if current_page?() %>">Reviews</a></li>
+    <li class="nav-item"><a href="#" class="nav-link <%= 'activea' if current_page?() %>">Favorites</a></li>
   </ul>
+  <%= render 'tourist_spots/tourist_spots', tourist_spots: @tourist_spots %>
 </div>
