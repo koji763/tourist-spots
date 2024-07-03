@@ -134,8 +134,6 @@ margin-bottom: 30px;
 
 /*カード*/
 .custom-card {
-  width: 60%;
-  margin:auto;
   border-radius: 20px;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem; /* マージンを調整 */
@@ -186,6 +184,17 @@ margin-bottom: 30px;
   padding: 6px;
   border-radius: 10px; 
   font-size: small;
-  border: solid;
+  border: 1px solid;
   text-decoration: none;
+}
+
+/*お気に入りアイコン*/
+.btn-link {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.fa-heart, .fa-heart-o {
+  font-size: 24px;
 }

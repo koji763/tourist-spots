@@ -10,6 +10,7 @@ import "channels"
 import $ from 'jquery'
 global.$ = $
 
+
 Rails.start()
 Turbolinks.start()
 
@@ -48,18 +49,71 @@ Turbolinks.start()
 // });
 
 // プレビューメッソド
-document.addEventListener('DOMContentLoaded', function() {
-  let fileList = []; // アップロードされたファイルを保持する配列
+// document.addEventListener('DOMContentLoaded', function() {
+//   let fileList = []; // アップロードされたファイルを保持する配列
 
+//   // プレビューの設定
+//   function readURL(input) {
+//     const newFiles = Array.from(input.files); // 新しくアップロードされたファイル
+//     fileList = fileList.concat(newFiles); // 既存のファイルリストと新しいファイルをマージ
+
+//     const previewZone = document.getElementById('preview-zone');
+//     previewZone.innerHTML = ''; // 既存のプレビューをクリア
+
+//     fileList.forEach((file, index) => {
+//       const reader = new FileReader();
+//       const uniqueId = 'file-' + index; // 一意の識別子を生成
+
+//       reader.onload = function(e) {
+//         const img = document.createElement('img');
+//         img.src = e.target.result;
+//         img.width = 100;
+//         img.height = 100;
+//         img.classList.add('preview-img');
+
+//         const removeButton = document.createElement('button');
+//         removeButton.type = 'button';
+//         removeButton.innerHTML = '&times;';
+//         removeButton.classList.add('remove-btn');
+//         removeButton.dataset.fileId = uniqueId; // 一意の識別子を設定
+
+//         removeButton.onclick = function() {
+//           img.remove();
+//           removeButton.remove();
+
+//           // 指定されたファイルを fileList から削除
+//           fileList = fileList.filter((_, i) => 'file-' + i !== this.dataset.fileId);
+
+//           // ファイルリストを再設定
+//           const dataTransfer = new DataTransfer();
+//           fileList.forEach(f => dataTransfer.items.add(f));
+//           input.files = dataTransfer.files; // input の files プロパティを更新
+//         };
+
+//         previewZone.appendChild(img);
+//         previewZone.appendChild(removeButton);
+//       };
+
+//       reader.readAsDataURL(file);
+//     });
+
+//     input.value = ''; // 同じファイルを再度アップロードできるようにクリア
+//   }
+
+//   document.getElementById('tourist_spot_images').addEventListener('change', function() {
+//     readURL(this);
+//   });
+// });
+
+
+// 画像プレビュー
+document.addEventListener('DOMContentLoaded', function() {
   // プレビューの設定
   function readURL(input) {
-    const newFiles = Array.from(input.files); // 新しくアップロードされたファイル
-    fileList = fileList.concat(newFiles); // 既存のファイルリストと新しいファイルをマージ
-
     const previewZone = document.getElementById('preview-zone');
     previewZone.innerHTML = ''; // 既存のプレビューをクリア
 
-    fileList.forEach((file, index) => {
+    Array.from(input.files).forEach((file, index) => {
       const reader = new FileReader();
       const uniqueId = 'file-' + index; // 一意の識別子を生成
 
@@ -79,13 +133,13 @@ document.addEventListener('DOMContentLoaded', function() {
         removeButton.onclick = function() {
           img.remove();
           removeButton.remove();
-
-          // 指定されたファイルを fileList から削除
-          fileList = fileList.filter((_, i) => 'file-' + i !== this.dataset.fileId);
-
-          // ファイルリストを再設定
+          // 指定されたファイルを input.files から削除する処理
           const dataTransfer = new DataTransfer();
-          fileList.forEach(f => dataTransfer.items.add(f));
+          Array.from(input.files).forEach((f, i) => {
+            if ('file-' + i !== uniqueId) {
+              dataTransfer.items.add(f);
+            }
+          });
           input.files = dataTransfer.files; // input の files プロパティを更新
         };
 
@@ -95,8 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       reader.readAsDataURL(file);
     });
-
-    input.value = ''; // 同じファイルを再度アップロードできるようにクリア
   }
 
   document.getElementById('tourist_spot_images').addEventListener('change', function() {
@@ -104,3 +156,22 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+
+// // お気に入り機能用のJavaScript
+// document.addEventListener('turbolinks:load', () => {
+//   // お気に入り追加・削除のAjaxリクエスト成功時の処理
+//   $(document).on('ajax:success', 'form[data-remote]', function(event) {
+//     const [data, status, xhr] = event.detail;
+
+//     // 成功時に何かしらの処理を行いたい場合はここに追加
+//     console.log('Ajax request successful');
+//   });
+
+//   // お気に入り追加・削除のAjaxリクエスト失敗時の処理
+//   $(document).on('ajax:error', 'form[data-remote]', function(event) {
+//     const [data, status, xhr] = event.detail;
+
+//     // 失敗時に何かしらの処理を行いたい場合はここに追加
+//     console.log('Ajax request failed');
+//   });
+// });

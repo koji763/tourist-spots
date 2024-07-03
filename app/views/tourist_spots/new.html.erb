@@ -10,37 +10,37 @@
       </div>
     
       <div class="field">
-        <%= form.label :spot_name, "Spot name <span class='text-danger'>*</span>".html_safe %>
+        <%= form.label :spot_name, "Spot name <span class='text-danger'>*</span>".html_safe, for: 'tourist_spot_spot_name' %>
         <%= form.text_field :spot_name, class: 'form-control' %>
       </div>
       
       <div class="field mt-3  select-dropdown">
-        <%= form.label :prefecture, "Prefecture <span class='text-danger'>*</span>".html_safe %>
+        <%= form.label :prefecture, "Prefecture <span class='text-danger'>*</span>".html_safe, for: 'tourist_spot_prefecture_id' %>
         <%= form.collection_select :prefecture_id, Prefecture.all, :id, :prefecture, { prompt: "Select a Prefecture" }, { class: 'form-select initial_char' } %>
       </div>
     
       <div class="field mt-3">
-        <%= form.label :address, "Address <span class='text-danger'>*</span>".html_safe %>
+        <%= form.label :address, "Address <span class='text-danger'>*</span>".html_safe, for: 'tourist_spot_address' %>
         <%= form.text_field :address, class: 'form-control' %>
       </div>
     
       <div class="field mt-3  select-dropdown">
-        <%= form.label :category, "Category <span class='text-danger'>*</span>".html_safe %>
+        <%= form.label :category, "Category <span class='text-danger'>*</span>".html_safe, for: 'tourist_spot_category_id' %>
         <%= form.collection_select :category_id, Category.all, :id, :category, { prompt: "Select a Category" }, { class: 'form-select initial_char' } %>
       </div>
     
       <div class="field mt-3  select-dropdown">
-        <%= form.label :usage_scene, "Usage scene <span class='text-danger'>*</span>".html_safe %>
+        <%= form.label :usage_scene, "Usage scene <span class='text-danger'>*</span>".html_safe, for: 'tourist_spot_usage_scene_id' %>
         <%= form.collection_select :usage_scene_id, UsageScene.all, :id, :usage_scene, { prompt: "Select a Usage Scene" }, { class: 'form-select initial_char' } %>
       </div>
       
       <div class="field mt-3">
-        <%= form.label :explanation, "Explanation <span class='text-danger'>*</span>".html_safe %>
+        <%= form.label :explanation, "Explanation <span class='text-danger'>*</span>".html_safe, for: 'tourist_spot_explanation' %>
         <%= form.text_area :explanation, class: 'form-control' %>
       </div>
     
       <div class="field mt-3">
-        <%= form.label :images, "Images (up to 5)" %>
+        <%= form.label :images, "Images (up to 5)", for: 'tourist_spot_images' %>
         <%= form.file_field :images, multiple: true, accept: 'image/*', id: 'tourist_spot_images' %>
         <div id="preview-zone" class="mt-3"></div> 
       </div>
@@ -50,4 +50,5 @@
       </div>
     <% end %>
   </div>
-  
+ 
+ 

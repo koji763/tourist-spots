@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_01_073008) do
+ActiveRecord::Schema.define(version: 2024_07_03_071151) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 2024_07_01_073008) do
     t.string "category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "favorites", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tourist_spot_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tourist_spot_id"], name: "index_favorites_on_tourist_spot_id"
+    t.index ["user_id", "tourist_spot_id"], name: "index_favorites_on_user_id_and_tourist_spot_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "prefectures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -85,6 +95,8 @@ ActiveRecord::Schema.define(version: 2024_07_01_073008) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "favorites", "tourist_spots"
+  add_foreign_key "favorites", "users"
   add_foreign_key "tourist_spots", "categories"
   add_foreign_key "tourist_spots", "prefectures"
   add_foreign_key "tourist_spots", "usage_scenes"

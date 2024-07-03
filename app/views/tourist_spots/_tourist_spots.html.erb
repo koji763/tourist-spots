@@ -1,8 +1,8 @@
 <% if tourist_spots.any? %>
   <ul class="list-unstyled mt-2">
     <% tourist_spots.each do |tourist_spot| %>
-      <li class="d-flex">
-        <div class="custom-card mb-3">
+      <li class="row justify-content-center">
+        <div class="custom-card mb-3 col-md-10">
           <div class="custom-card-body">
             <h5 class="custom-card-title d-flex align-items-center">
               <i class="bi bi-geo-alt-fill custom-icon mr-4"></i> <%= tourist_spot.spot_name %>
@@ -16,6 +16,9 @@
               <strong>Evaluation:</strong> <%= tourist_spot.avg_evaluation.present? ? tourist_spot.avg_evaluation : 'Not yet rated' %>
             </p>
             <%= link_to "view details", tourist_spot_path(tourist_spot) %>
+            <% if tourist_spot.user != current_user %>
+              <%= render 'tourist_spots/favorite_button', spot: tourist_spot %>
+            <% end %>
           </div>
         </div>
       </li>

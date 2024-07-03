@@ -6,6 +6,12 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   has_many :tourist_spots, dependent: :destroy
+  
+  # お気に入り機能のためのモデル関連付け
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_spots, through: :favorites, source: :tourist_spot
+  
+  # ActiveStorage
   has_one_attached :icon
   
   validate :acceptable_image
@@ -22,6 +28,20 @@ class User < ApplicationRecord
     unless acceptable_types.include?(icon.content_type)
       errors.add(:icon, "must be a JPEG or PNG")
     end
+  end
+  
+  # お気に入り登録・解除・確認
+  def add_favorite(spot)
+    self.favorites.find_or_create_by(tourist_spot_id: spot.id)
+  end
+  
+  def delete_favorite(spot)
+    favorite = self.favorites.find_by(tourist_spot_id: spot.id)
+    favorite.destroy if favorite
+  end
+  
+  def favorite?(spot)
+    self.favorites.exists?(tourist_spot_id: spot.id)
   end
   
 end

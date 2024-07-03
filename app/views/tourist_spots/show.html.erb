@@ -10,9 +10,12 @@
       <p><strong>Explanation:</strong> <%= @tourist_spot.explanation %></p>
       <p><strong>Evaluation:</strong> <%= @tourist_spot.avg_evaluation.present? ? "#{@tourist_spot.avg_evaluation}/5" : "Not yet rated" %></p>
       <p><strong>Post date:</strong> <%= @tourist_spot.created_at %></p>
-
     </div>
   </div>
+  
+  <!--お気に入り-->
+  <%= render 'tourist_spots/favorite_button', spot: @tourist_spot %>
+
   
   <!--画像のモーダル表示-->
   <button id="modalOpen">view image</button>

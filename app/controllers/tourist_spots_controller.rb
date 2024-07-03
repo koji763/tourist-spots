@@ -14,6 +14,7 @@ class TouristSpotsController < ApplicationController
   end
 
   def create
+    Rails.logger.debug "Tourist Spot Params: #{params[:tourist_spot].inspect}"
     @tourist_spot = current_user.tourist_spots.new(tourist_spot_params)
     if @tourist_spot.save
       flash[:success] = "Tourist spot has been created."
@@ -64,6 +65,9 @@ class TouristSpotsController < ApplicationController
     @tourist_spot.destroy
     flash[:success] = "Tourist spot has been deleted."
     redirect_to user_path(current_user)
+  end
+  
+  def likes
   end
 
   private

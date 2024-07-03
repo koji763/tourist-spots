@@ -3,7 +3,12 @@ class TouristSpot < ApplicationRecord
   belongs_to :category
   belongs_to :usage_scene
   belongs_to :prefecture
-  has_many_attached :images# 複数画像のアップ（imagesは任意設定文字）
+  # 複数画像のアップ（imagesは任意設定文字）
+  has_many_attached :images
+  
+  # お気に入り機能
+  has_many :favorites, dependent: :destroy
+
   
   # 各カラム必須設定
   validates :spot_name, presence: true, length: { maximum: 255 }

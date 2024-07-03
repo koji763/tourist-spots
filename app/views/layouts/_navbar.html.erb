@@ -9,22 +9,22 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <%= link_to root_path, class: "nav-link" do %>
-                <i class="bi bi-house-door"></i> Top
+                <i class="fas fa-solid fa-house"></i> Top
               <% end %>
             </li>
             <li class="nav-item">
               <%= link_to search_path, class: "nav-link" do %>
-                <i class="bi bi-search"></i> Search
+                <i class="fas fa-solid fa-magnifying-glass"></i> Search
               <% end %>
             </li>
             <li class="nav-item">
               <%= link_to user_path(current_user), class: "nav-link" do %>
-                <i class="bi bi-person"></i> Mypage
+                <i class="fas fa-solid fa-user"></i> Mypage
               <% end %>
             </li>
             <li class="nav-item">
               <%= link_to new_tourist_spot_path, class: 'nav-link' do %>
-                <i class="bi bi-plus-square"></i> Post
+                <i class="fas fa-solid fa-comment"></i> Post
               <% end %>
             </li>
           </ul>

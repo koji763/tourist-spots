@@ -45,6 +45,11 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
   
+  def likes
+    @user = current_user
+    @pagy, @likes = pagy(@user.favorite_spots)
+  end
+  
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :icon)
