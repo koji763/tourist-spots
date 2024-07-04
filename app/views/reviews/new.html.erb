@@ -1,0 +1,15 @@
+<h2>Add a Review</h2>
+
+<%= form_with(model: [@tourist_spot, @tourist_spot.reviews.build], local: true) do |form| %>
+  <div class="field">
+    <%= form.label :evaluation %>
+    <%= form.number_field :evaluation, in: 1..5, step: 1 %>
+  </div>
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= form.submit 'Submit Review' %>
+  </div>
+<% end %>

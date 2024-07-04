@@ -6,10 +6,13 @@ Rails.application.routes.draw do
   resources :users, only:[:index, :show, :create, :edit, :update, :destroy] do
     member do
       get :likes
+      get :reviews
     end
   end
 
-  resources :tourist_spots, only:[:show, :new, :create, :edit, :update, :destroy]
+  resources :tourist_spots, only:[:show, :new, :create, :edit, :update, :destroy] do
+    resources :reviews, only: [:new, :create, :edit, :update, :destroy]
+  end
   resources :favorites, only: [:create, :destroy]
   
   get 'login', to: 'sessions#new'

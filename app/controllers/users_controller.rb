@@ -50,6 +50,9 @@ class UsersController < ApplicationController
     @pagy, @likes = pagy(@user.favorite_spots)
   end
   
+  def reviews 
+  end
+  
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :icon)

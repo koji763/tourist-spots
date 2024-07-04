@@ -6,6 +6,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   has_many :tourist_spots, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   
   # お気に入り機能のためのモデル関連付け
   has_many :favorites, dependent: :destroy
@@ -13,6 +14,7 @@ class User < ApplicationRecord
   
   # ActiveStorage
   has_one_attached :icon
+
   
   validate :acceptable_image
   

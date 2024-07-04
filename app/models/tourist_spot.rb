@@ -8,7 +8,7 @@ class TouristSpot < ApplicationRecord
   
   # お気に入り機能
   has_many :favorites, dependent: :destroy
-
+  has_many :reviews, dependent: :destroy
   
   # 各カラム必須設定
   validates :spot_name, presence: true, length: { maximum: 255 }
@@ -49,6 +49,15 @@ class TouristSpot < ApplicationRecord
     
     if images.size > 5
       errors.add(:images, "should not be more than 5")
+    end
+  end
+  
+  # 平均評価取得
+  def update_avg_evaluation!
+    if reviews.any?
+      update(avg_evaluation: reviews.average(:evaluation).to_f)
+    else
+      update(avg_evaluation: nil)
     end
   end
   

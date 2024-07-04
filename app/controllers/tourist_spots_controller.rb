@@ -66,9 +66,6 @@ class TouristSpotsController < ApplicationController
     flash[:success] = "Tourist spot has been deleted."
     redirect_to user_path(current_user)
   end
-  
-  def likes
-  end
 
   private
 
