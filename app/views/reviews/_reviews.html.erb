@@ -1,0 +1,26 @@
+<% if reviews.any? %>
+  <ul class="list-unstyled mt-2">
+    <% reviews.each do |review| %>
+      <li class="row justify-content-center">
+        <div class="custom-card mb-3 col-md-10">
+          <div class="custom-card-body">
+            <h5 class="custom-card-title d-flex align-items-center">
+              <i class="bi bi-geo-alt-fill custom-icon mr-4"></i> <%= review.tourist_spot.spot_name %>
+            </h5>
+            <p class="custom-card-text">
+              <strong>Evaluation:</strong> <%= review.evaluation %><br>
+              <strong>Comment:</strong> <%= review.comment %><br>
+            </p>
+            <% if review.user == current_user %>
+              <%= link_to 'Edit', edit_review_path(review), class: 'btn btn-warning' %>
+              <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <%== pagy_bootstrap_nav(@pagy) %>
+<% else %>
+  <p class="text-muted">You have not posted any reviews yet.</p>
+<% end %>

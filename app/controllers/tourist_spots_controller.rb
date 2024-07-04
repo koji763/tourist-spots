@@ -7,6 +7,7 @@ class TouristSpotsController < ApplicationController
   end
   
   def show
+    @pagy, @reviews = pagy(@tourist_spot.reviews)
   end
 
   def new
@@ -78,7 +79,7 @@ class TouristSpotsController < ApplicationController
   end
   
   def search_params
-    params.permit(:prefecture_id, :address, { category_ids: [] }, { usage_scene_ids: [] }, :sort)
+    params.permit(:prefecture_id, :address_or_spot_name, { category_ids: [] }, { usage_scene_ids: [] }, :sort)
   end
   
   def search_tourist_spots(params)
@@ -90,8 +91,8 @@ class TouristSpotsController < ApplicationController
     end
     
     # 検索優先度2: エリア
-    if params[:address].present?
-      spots = spots.where('address LIKE ?', "%#{params[:address]}%")
+    if params[:address_or_spot_name].present?
+      spots = spots.where('address LIKE ? OR spot_name LIKE ?', "%#{params[:address_or_spot_name]}%", "%#{params[:address_or_spot_name]}%")
     end
     
     # 検索優先度3: カテゴリと使用シーン (OR条件)

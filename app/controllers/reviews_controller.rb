@@ -1,9 +1,10 @@
 class ReviewsController < ApplicationController
   before_action :require_user_logged_in
-  before_action :set_tourist_spot
+  before_action :set_tourist_spot, only: [:new, :create]
   before_action :set_review, only: [:edit, :update, :destroy]
   
   def new
+    @review = @tourist_spot.reviews.build
   end
   
   def create
@@ -24,7 +25,7 @@ class ReviewsController < ApplicationController
   def update
     if @review.update(review_params)
       flash[:success] = "Review updated!"
-      redirect_to @tourist_spot
+      redirect_back(fallback_location: @tourist_spot)
     else
       flash.now[:danger] = "Review update failed."
       render :edit
@@ -34,7 +35,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     flash[:success] = "Review deleted!"
-    redirect_to @tourist_spot
+    redirect_back(fallback_location: @tourist_spot)
   end
 
   private
@@ -46,7 +47,8 @@ class ReviewsController < ApplicationController
 
   # レビューを取得
   def set_review
-    @review = @tourist_spot.reviews.find(params[:id])
+    @review = Review.find(params[:id])
+    @tourist_spot = @review.tourist_spot 
   end
 
   def review_params

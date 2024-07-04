@@ -20,6 +20,15 @@ class TouristSpot < ApplicationRecord
   
   # 画像の設定
   validate :image_type, :image_size, :image_limit
+  
+  # 平均評価取得
+  def update_avg_evaluation!
+    if reviews.any?
+      update(avg_evaluation: reviews.average(:evaluation).to_f)
+    else
+      update(avg_evaluation: nil)
+    end
+  end
 
   # 画像の形式・容量・枚数チェックメソッド
   private
@@ -49,15 +58,6 @@ class TouristSpot < ApplicationRecord
     
     if images.size > 5
       errors.add(:images, "should not be more than 5")
-    end
-  end
-  
-  # 平均評価取得
-  def update_avg_evaluation!
-    if reviews.any?
-      update(avg_evaluation: reviews.average(:evaluation).to_f)
-    else
-      update(avg_evaluation: nil)
     end
   end
   

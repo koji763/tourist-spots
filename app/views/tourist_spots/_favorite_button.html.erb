@@ -10,3 +10,22 @@
     <%= f.submit 'Add Favorite', class: 'btn btn-primary w-100' %>
   <% end %>
 <% end %>
+
+
+<% if current_user.favorite?(spot) %>
+  <%= form_with(model: current_user.favorites.find_by(tourist_spot_id: spot.id), method: :delete, remote: true, html: { class: 'favorite-button' }) do |f| %>
+    <%= hidden_field_tag :favorite_spot_id, spot.id %>
+    <%= f.submit class: 'favorite-button' do %>
+      <i class="fa fa-heart"></i>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= form_with(model: current_user.favorites.build, remote: true, html: { class: 'favorite-button' }) do |f| %>
+    <%= hidden_field_tag :favorite_spot_id, spot.id %>
+    <%= f.submit class: 'favorite-button' do %>
+      <i class="fa fa-heart-o"></i>
+    <% end %>
+  <% end %>
+<% end %>
+
+

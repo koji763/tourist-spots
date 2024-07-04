@@ -15,7 +15,6 @@ class User < ApplicationRecord
   # ActiveStorage
   has_one_attached :icon
 
-  
   validate :acceptable_image
   
   # 画像ファイルの制約

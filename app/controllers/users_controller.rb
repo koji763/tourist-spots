@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
    before_action :require_user_logged_in, only: [:index, :show, :edit, :destroy]
    before_action :set_user, only: [:edit, :update, :destroy]
+   before_action :set_cur_user, only: [:show, :likes, :reviews]
   
   def index
   end
   
   def show
-    @user = current_user
     @pagy, @tourist_spots = pagy(@user.tourist_spots.order(id: :desc), items: 5)
   end
   
@@ -46,11 +46,11 @@ class UsersController < ApplicationController
   end
   
   def likes
-    @user = current_user
     @pagy, @likes = pagy(@user.favorite_spots)
   end
   
   def reviews 
+    @pagy, @reviews = pagy(@user.reviews)
   end
   
   private
@@ -60,6 +60,10 @@ class UsersController < ApplicationController
   
   def set_user
     @user = User.find(params[:id])
+  end
+  
+  def set_cur_user
+    @user = current_user
   end
   
 end

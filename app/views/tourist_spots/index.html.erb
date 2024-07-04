@@ -5,10 +5,11 @@
   
   <%= form_with url: search_path, method: :get, local: true do |form| %>
   
-    <div class="field">
-      <%= form.label :address, "Search by area" %>
-      <%= form.text_field :address, value: params[:address], class: 'form-control', placeholder: 'Enter Area' %>
+    <div class="field mt-3">
+      <%= form.label :address_or_spot_name, "Search by area or spot name" %>
+      <%= form.text_field :address_or_spot_name, value: params[:address_or_spot_name], class: 'form-control', placeholder: 'Enter Area or Spot Name' %>
     </div>
+
     
     <div class="field mt-3 select-dropdown">
       <%= form.label :prefecture %>

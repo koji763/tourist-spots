@@ -63,9 +63,13 @@
       <%= link_to 'Delete', @tourist_spot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
     </div>
   <% end %>
+  
+  <!--レビュー一覧とレビュー作成ボタンを作成-->
+  <%= link_to "Add a review", new_tourist_spot_review_path(@tourist_spot), class: "btn btn-primary" %>
+  <%= render 'reviews/reviews', reviews: @reviews %>
+
 </div>
 
-<!--レビュー一覧とレビュー作成ボタンを作成-->
 
 <!--モーダルのjs-->
 <script>

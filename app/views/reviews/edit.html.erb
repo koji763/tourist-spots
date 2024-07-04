@@ -1,2 +1,10 @@
-<h1>Reviews#edit</h1>
-<p>Find me in app/views/reviews/edit.html.erb</p>
+<div class="text-center mb-3 mt-5">
+  <h1>Edit a Review</h1>
+</div>
+
+<%= render "review_form", review: @review, btn_message: "Update a Review" %>
+
+<div class="d-flex justify-content-between mb-3">
+  <%= link_to 'Back to My Reviews', reviews_user_path(current_user), class: 'btn btn-secondary' %>
+  <%= link_to 'View Tourist Spot Details', tourist_spot_path(@review.tourist_spot), class: 'btn btn-info' %>
+</div>

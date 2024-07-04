@@ -11,8 +11,9 @@ Rails.application.routes.draw do
   end
 
   resources :tourist_spots, only:[:show, :new, :create, :edit, :update, :destroy] do
-    resources :reviews, only: [:new, :create, :edit, :update, :destroy]
+    resources :reviews, shallow: true
   end
+  
   resources :favorites, only: [:create, :destroy]
   
   get 'login', to: 'sessions#new'

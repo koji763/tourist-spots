@@ -189,12 +189,23 @@ margin-bottom: 30px;
 }
 
 /*お気に入りアイコン*/
-.btn-link {
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
   border: none;
-  background: none;
-  cursor: pointer;
 }
 
-.fa-heart, .fa-heart-o {
-  font-size: 24px;
+.favorite-button i {
+  font-size: 1.5rem;
+  color: #ff0000; /* ハートマークの色 */
+}
+
+.favorite-button .filled {
+  color: #ff0000; /* 塗りつぶされたハートの色 */
+}
+
+.favorite-button .unfilled {
+  color: #cccccc; /* 塗りつぶされていないハートの色 */
 }
