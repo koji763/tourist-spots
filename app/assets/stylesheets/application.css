@@ -98,7 +98,7 @@ html, body{
 }
 
 .feature-image {
-  width: 20%; 
+  width: 250px; 
   border-radius: 50%;
   background-color: white; /* 背景色を白にする */
   display: block;
@@ -106,6 +106,9 @@ html, body{
   object-fit: cover; 
 }
 
+.special-font {
+  font-family: 'Playfair Display', serif;
+}
 
 .footer {
   background-color: #069;
