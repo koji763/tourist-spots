@@ -1,26 +1,45 @@
-<div class="container">
-  <h1>Welcome to Tourist Spots</h1>
-  <h2>Experience the true beauty of Japan, beyond filters.</h2>
 
-    <p>Do you know the truly amazing tourist spots?</p>
-    <p>Japan has many excellent tourist spots that are not generally known. Discover real tourist spots without the filters of SNS and TV.</p>
-
-  <div class="feature">
-    <h3>Feature ①: Search</h3>
-    <p>Use the search function to find your favorite spots.</p>
-  </div>
-
-  <div class="feature">
-    <h3>Feature ②: Review</h3>
-    <p>When you actually visit a spot, post your real voice in response to other people's posts.</p>
-  </div>
-
-  <div class="feature">
-    <h3>Feature ③: Post</h3>
-    <p>If you find a spot that is just for you, be sure to post it.</p>
+<div class="container text-center mt-4">
+  <div class="custom-header">
+    <%= image_tag 'headimg.png', alt: 'head_image', class: 'head-image' %>
+    <h1>Welcome to Tourist Spots</h1>
+    <h2>Experience the true beauty of Japan, beyond filters.</h2>
+    <div class="custom-horizontal-line"></div>
   </div>
   
+  <div class="custom-ex">
+    <h2 class="mt-1 mb-1">How to Use</h2>
+    <p class = "mt-5">Do you know the truly amazing tourist spots?</p>
+    <p class = "mb-5">Japan has many excellent tourist spots that are not generally known. <br>Discover real tourist spots without the filters of SNS.</p>
+  </div>
+
+  <div class="feature mt-5">
+    <h3>Search</h3>
+    <div class="feature-content">
+      <%= image_tag 'search.jpg', alt: 'search_image', class: 'feature-image' %>
+      <p class="top-explain">Use the search function to find your favorite spots.</p>
+    </div>
+  </div>
+
+  <div class="feature">
+    <h3>Review</h3>
+    <div class="feature-content">
+      <%= image_tag 'review.png', alt: 'review_image', class: 'feature-image' %>
+      <p class="top-explain">When you actually visit a spot, post your reviews.</p>
+    </div>
+  </div>
+
+  <div class="feature">
+    <h3>Post</h3>
+    <div class="feature-content">
+      <%= image_tag 'post.png', alt: 'post_image', class: 'feature-image' %>
+      <p class="top-explain">If you find a spot that is just for you, be sure to post it.</p>
+    </div>
+  </div>
+
   <% unless logged_in? %>
-    <%= link_to "Join our community", login_path, class: "btn btn-primary" %>
+    <div style="margin-bottom:120px; margin-top:50px;">
+      <%= link_to "Join our community", login_path, class: "btn btn-primary" %>
+    </div>
   <% end %>
 </div>

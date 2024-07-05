@@ -1,24 +1,10 @@
-<div class="d-flex justify-content-center align-items-center">
-  <div class="pe-3 mt-5">
-    <% if @user.icon.attached? %>
-      <%= image_tag @user.icon.variant(resize: "100x100").processed, class: "rounded-circle", alt: "User Icon", style: "width: 100px; height: 100px;" %>
-    <% else %>
-      <%= image_tag "default_icon.png", class: "rounded-circle", alt: "Default User Icon", style: "width: 100px; height: 100px;" %>
-    <% end %>
-  </div>
-  <div class="mb-3 mt-5">
-      <p>name：<%= @user.name %></p>
-      <p>email：<%= @user.email %></p>
-      <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %>
-      <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure you want to delete your account?' }, class: 'btn btn-danger' %>
-  </div>
-</div>
+<%= render "mypage", user:@user %>
 
 <div style="width: 45%; margin: auto;">
   <ul class="nav nav-tabs nav-justified mb-4 mt-2">
-    <li class="nav-item"><a href="<%= user_path(@user) %>" class="nav-link <%= 'active' if current_page?(user_path(@user)) %>">Spots</a></li>
-    <li class="nav-item"><a href="<%= reviews_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(reviews_user_path(@user)) %>">Reviews</a></li>
-    <li class="nav-item"><a href="<%= likes_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(likes_user_path(@user)) %>">Favorites</a></li>
+    <li class="nav-item"><a href="<%= user_path(@user) %>" class="nav-link <%= 'active' if current_page?(user_path(@user)) %>"><i class="fa-solid fa-location-dot me-1"></i>Spots</a></li>
+    <li class="nav-item"><a href="<%= reviews_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(reviews_user_path(@user)) %>"><i class="fa-solid fa-comment me-1"></i>Reviews</a></li>
+    <li class="nav-item"><a href="<%= likes_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(likes_user_path(@user)) %>"><i class="fa-solid fa-heart me-1"></i>Favorites</a></li>
   </ul>
-  <%= render 'reviews/reviews', reviews: @reviews %>
+  <%= render 'reviews/reviews', reviews: @reviews, empty_message: "You have not posted any reviews yet." %>
 </div>

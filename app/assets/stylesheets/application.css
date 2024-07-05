@@ -38,6 +38,74 @@ html, body{
   padding: 20px;
 }
 
+.container {
+  margin: 0 auto;
+}
+
+.head-image {
+  width: 30%;
+  margin: 40px 0;
+}
+
+.custom-horizontal-line {
+  width: 50%;
+  border-top: 2px dotted #0056b3;
+  margin: 40px auto;
+}
+
+.custom-header h1 {
+  margin-top: 30px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #0056b3;
+}
+
+.custom-header h2 {
+  font-size: 24px;
+  margin-bottom: 100px;
+  margin-top: 30px;
+  color: #0056b3;
+}
+
+.custom-ex p {
+  font-size: 18px;
+  color: #333;
+}
+
+.feature {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.feature h3 {
+  color: navy;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 70px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.feature-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature-content p{
+  margin-top: 10px;
+}
+
+.feature-image {
+  width: 20%; 
+  border-radius: 50%;
+  background-color: white; /* 背景色を白にする */
+  display: block;
+  margin: 0 auto;
+  object-fit: cover; 
+}
+
 
 .footer {
   background-color: #069;
@@ -142,6 +210,7 @@ margin-bottom: 30px;
 
 .custom-card-body {
   padding: 20px;
+  position: relative;
 }
 
 .custom-card-title {
@@ -157,6 +226,14 @@ margin-bottom: 30px;
   line-height: 1.5;
 }
 
+/*スポットカードの三本線用*/
+.position-absolute {
+  position: absolute;
+  top: 15px;
+  right: 3px;
+}
+
+
 .custom-icon {
   color: #17a2b8; /* アイコンの色を青色に設定 */
   margin-right: 1.5rem; /* マージンを調整 */
@@ -166,6 +243,8 @@ margin-bottom: 30px;
   font-size: large;
   font-weight: bold;
 }
+
+
 
 /*並び替えボタンの装飾*/
 .btn-white {
@@ -189,23 +268,57 @@ margin-bottom: 30px;
 }
 
 /*お気に入りアイコン*/
-.favorite-button {
+
+.custom-favorite-button_in_list {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
+  top: 20px;
+  right: 15px;
+  background: none;
   border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none !important; /* フォーカスリングを削除 */
 }
 
-.favorite-button i {
-  font-size: 1.5rem;
-  color: #ff0000; /* ハートマークの色 */
+.custom-favorite-button_in_details {
+  position: absolute;
+  top: 125px;
+  right: 100px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none !important; /* フォーカスリングを削除 */
 }
 
-.favorite-button .filled {
-  color: #ff0000; /* 塗りつぶされたハートの色 */
+.custom-favorite-icon_in_list {
+  color: #ffc0cb;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.favorite-button .unfilled {
-  color: #cccccc; /* 塗りつぶされていないハートの色 */
+.custom-favorite-icon_in_details {
+  color: #ffc0cb;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.spot-favorite{
+  position: relative;
+}
+
+/*リンクの文字無し*/
+.no-underline {
+  color: inherit; /* 親要素の色を継承 */
+  text-decoration: none; /* 下線を消す */
+}
+
+.no-underline:hover {
+  color: inherit; /* ホバー時も親要素の色を継承 */
+  text-decoration: none; /* ホバー時も下線を消す */
+}
+
+/*星評価*/
+.full-star, .half-star, .empty-star {
+  color: #ffa500;
 }

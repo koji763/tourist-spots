@@ -5,16 +5,23 @@
         <div class="custom-card mb-3 col-md-10">
           <div class="custom-card-body">
             <h5 class="custom-card-title d-flex align-items-center">
-              <i class="bi bi-geo-alt-fill custom-icon mr-4"></i> <%= review.tourist_spot.spot_name %>
+              <%= link_to review.tourist_spot.spot_name, tourist_spot_path(review.tourist_spot), class: "no-underline" %>
             </h5>
+            <% if current_user.id == review.user_id %>
+              <div class="dropdown position-absolute">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  action
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                  <li><%= link_to 'Edit', edit_review_path(review), class: 'dropdown-item' %></li>
+                  <li><%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item text-danger' %></li>
+                </ul>
+              </div>        
+            <% end %>
             <p class="custom-card-text">
-              <strong>Evaluation:</strong> <%= review.evaluation %><br>
+              <strong>Evaluation:</strong> <%= star_rating(review.evaluation) %><br>
               <strong>Comment:</strong> <%= review.comment %><br>
             </p>
-            <% if review.user == current_user %>
-              <%= link_to 'Edit', edit_review_path(review), class: 'btn btn-warning' %>
-              <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-            <% end %>
           </div>
         </div>
       </li>
@@ -22,5 +29,5 @@
   </ul>
   <%== pagy_bootstrap_nav(@pagy) %>
 <% else %>
-  <p class="text-muted">You have not posted any reviews yet.</p>
+  <p class="text-muted"><%= empty_message %></p>
 <% end %>

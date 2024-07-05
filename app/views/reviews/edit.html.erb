@@ -4,7 +4,7 @@
 
 <%= render "review_form", review: @review, btn_message: "Update a Review" %>
 
-<div class="d-flex justify-content-between mb-3">
-  <%= link_to 'Back to My Reviews', reviews_user_path(current_user), class: 'btn btn-secondary' %>
-  <%= link_to 'View Tourist Spot Details', tourist_spot_path(@review.tourist_spot), class: 'btn btn-info' %>
+<div class="d-flex justify-content-center mt-3">
+  <%= link_to 'Back to My Reviews', reviews_user_path(current_user), class: "me-2" %>
+  <%= link_to 'View Tourist Spot Details', tourist_spot_path(@review.tourist_spot), class: "ms-2" %>
 </div>

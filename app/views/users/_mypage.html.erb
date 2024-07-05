@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center align-items-center">
+  <div class="pe-3 mt-5">
+    <% if user.icon.attached? %>
+      <%= image_tag user.icon.variant(resize: "100x100").processed, class: "rounded-circle", alt: "User Icon", style: "width: 100px; height: 100px;" %>
+    <% else %>
+      <%= image_tag "default_icon.png", class: "rounded-circle", alt: "Default User Icon", style: "width: 100px; height: 100px;" %>
+    <% end %>
+  </div>
+  <div class="mb-3 mt-5">
+      <p>name：<%= user.name %></p>
+      <p>email：<%= user.email %></p>
+      <%= link_to 'Edit', edit_user_path(user), class: "btn btn-primary" %>
+      <%= link_to 'Delete Account', user, method: :delete, data: { confirm: 'Are you sure you want to delete your account?' }, class: 'btn btn-danger' %>
+  </div>
+</div>

@@ -1,21 +1,22 @@
 <div class="container mt-5">
   <h1 class="mb-4"><%= @tourist_spot.spot_name %></h1>
 
-  <div class="row">
+  <div class="row spot-favorite">
     <div class="col-md-8">
       <p><strong>Prefecture:</strong> <%= @tourist_spot.prefecture.prefecture %></p>
       <p><strong>Address:</strong> <%= @tourist_spot.address %></p>
       <p><strong>Category:</strong> <%= @tourist_spot.category.category %></p>
       <p><strong>Usage Scene:</strong> <%= @tourist_spot.usage_scene.usage_scene %></p>
       <p><strong>Explanation:</strong> <%= @tourist_spot.explanation %></p>
-      <p><strong>Evaluation:</strong> <%= @tourist_spot.avg_evaluation.present? ? "#{@tourist_spot.avg_evaluation}/5" : "Not yet rated" %></p>
-      <p><strong>Post date:</strong> <%= @tourist_spot.created_at %></p>
+      <p><strong>Evaluation:</strong> <%= @tourist_spot.avg_evaluation.present? ? star_rating(@tourist_spot.avg_evaluation) : 'Not yet rated' %></P>
+      <p><strong>Post date:</strong> <%= @tourist_spot.created_at.strftime("%Y-%m-%d") %></p>
     </div>
   </div>
   
   <!--お気に入り-->
-  <%= render 'tourist_spots/favorite_button', spot: @tourist_spot %>
-
+    <% if @tourist_spot.user != current_user %>
+      <%= render 'tourist_spots/favorite_button', spot: @tourist_spot, icon_class: "custom-favorite-icon_in_details", button_class: "custom-favorite-button_in_details" %>
+    <% end %>
   
   <!--画像のモーダル表示-->
   <button id="modalOpen">view image</button>
@@ -56,7 +57,8 @@
       </div>
     </div>
   </div>
-
+  
+  <!--自分の投稿だったら削除と編集ボタン-->
   <% if current_user.id == @tourist_spot.user_id%>
     <div class="mt-4">
       <%= link_to 'Edit', edit_tourist_spot_path(@tourist_spot), class: 'btn btn-primary' %>
@@ -65,8 +67,13 @@
   <% end %>
   
   <!--レビュー一覧とレビュー作成ボタンを作成-->
-  <%= link_to "Add a review", new_tourist_spot_review_path(@tourist_spot), class: "btn btn-primary" %>
-  <%= render 'reviews/reviews', reviews: @reviews %>
+  <div class="text-center mt-5 mb-5">
+    <h3 style="text-decoration: underline;"><i class="fa-regular fa-comment me-2"></i>Reviews</h3>
+    <p class="mt-3">Have you visited this tourist spot? Share your experience by writing a review!</p>
+    <%= link_to "Add a review", new_tourist_spot_review_path(@tourist_spot), class: "btn btn-primary" %>
+  </div>
+  
+  <%= render 'reviews/reviews', reviews: @reviews, empty_message: "No one has posted any reviews yet." %>
 
 </div>
 

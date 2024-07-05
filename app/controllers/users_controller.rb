@@ -46,11 +46,11 @@ class UsersController < ApplicationController
   end
   
   def likes
-    @pagy, @likes = pagy(@user.favorite_spots)
+    @pagy, @likes = pagy(@user.favorite_spots.order(id: :desc), items: 5)
   end
   
   def reviews 
-    @pagy, @reviews = pagy(@user.reviews)
+    @pagy, @reviews = pagy(@user.reviews.order(id: :desc), items: 5)
   end
   
   private

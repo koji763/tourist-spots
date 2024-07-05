@@ -2,7 +2,8 @@ class ReviewsController < ApplicationController
   before_action :require_user_logged_in
   before_action :set_tourist_spot, only: [:new, :create]
   before_action :set_review, only: [:edit, :update, :destroy]
-  
+  before_action :check_duplicate_review, only: [:create]
+
   def new
     @review = @tourist_spot.reviews.build
   end
@@ -54,4 +55,13 @@ class ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:evaluation, :comment)
   end
+  
+  # 複数レビュー防止メソッド
+  def check_duplicate_review
+    if Review.exists?(user_id: current_user.id, tourist_spot_id: @tourist_spot.id)
+      flash[:danger] = "You can only write one review per post. You have already written a review for this post."
+      redirect_to new_tourist_spot_review_path(@tourist_spot)
+    end
+  end
+  
 end

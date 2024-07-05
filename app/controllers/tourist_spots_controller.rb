@@ -7,7 +7,7 @@ class TouristSpotsController < ApplicationController
   end
   
   def show
-    @pagy, @reviews = pagy(@tourist_spot.reviews)
+    @pagy, @reviews = pagy(@tourist_spot.reviews.order(created_at: :desc), items: 5)
   end
 
   def new
@@ -65,7 +65,11 @@ class TouristSpotsController < ApplicationController
   def destroy
     @tourist_spot.destroy
     flash[:success] = "Tourist spot has been deleted."
-    redirect_to user_path(current_user)
+    if request.referer && URI(request.referer).path != tourist_spot_path(@tourist_spot)
+      redirect_back(fallback_location: tourist_spots_path)
+    else
+      redirect_to user_path(current_user)
+    end
   end
 
   private

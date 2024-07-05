@@ -5,19 +5,30 @@
         <div class="custom-card mb-3 col-md-10">
           <div class="custom-card-body">
             <h5 class="custom-card-title d-flex align-items-center">
-              <i class="bi bi-geo-alt-fill custom-icon mr-4"></i> <%= tourist_spot.spot_name %>
+              <i class="bi bi-geo-alt-fill custom-icon mr-4"></i><%= link_to tourist_spot.spot_name, tourist_spot_path(tourist_spot), class: "no-underline" %>
             </h5>
+            <% if current_user.id == tourist_spot.user_id %>
+              <div class="dropdown position-absolute">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  action
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                  <li><%= link_to 'Edit', edit_tourist_spot_path(tourist_spot), class: 'dropdown-item' %></li>
+                  <li><%= link_to 'Delete', tourist_spot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item text-danger' %></li>
+                </ul>
+              </div>        
+            <% end %>
             <p class="custom-card-text">
               <strong>Prefecture:</strong> <%= tourist_spot.prefecture.prefecture %><br>
               <strong>Address:</strong> <%= tourist_spot.address %><br>
               <strong>Category:</strong> <%= tourist_spot.category.category %><br>
               <strong>Usage_scene:</strong> <%= tourist_spot.usage_scene.usage_scene %><br>
               <strong>Post date:</strong> <%= tourist_spot.created_at.strftime("%Y-%m-%d") %><br>
-              <strong>Evaluation:</strong> <%= tourist_spot.avg_evaluation.present? ? tourist_spot.avg_evaluation : 'Not yet rated' %>
+              <strong>Evaluation:</strong> <%= tourist_spot.avg_evaluation.present? ? star_rating(tourist_spot.avg_evaluation) : 'Not yet rated' %>
             </p>
             <%= link_to "view details", tourist_spot_path(tourist_spot) %>
             <% if tourist_spot.user != current_user %>
-              <%= render 'tourist_spots/favorite_button', spot: tourist_spot %>
+              <%= render 'tourist_spots/favorite_button', spot: tourist_spot, icon_class: "custom-favorite-icon_in_list", button_class: "custom-favorite-button_in_list" %>
             <% end %>
           </div>
         </div>
