@@ -52,3 +52,8 @@ gem 'image_processing', '~> 1.2'
 gem 'bootstrap', '~> 5.0.0'
 gem 'jquery-rails'
 
+gem 'aws-sdk-s3', require: false
+
+group :production do
+  gem 'pg', '>= 0.18', '< 2.0'
+end
